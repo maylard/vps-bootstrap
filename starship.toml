@@ -9,6 +9,7 @@ format = """
 [](#9A348E)\
 $os\
 $username\
+$hostname\
 [](bg:#DA627D fg:#9A348E)\
 $directory\
 [](fg:#DA627D bg:#FCA17D)\
@@ -53,6 +54,16 @@ disabled = false
 [os]
 style = "bg:#9A348E"
 disabled = true # Disabled by default
+
+# Compact hostname inside the same purple segment as $username.
+# ssh_only = true → only shows on remote hosts, keeps local Mac prompt clean.
+# trim_at = "."   → "wasp.tthewa.co.uk" renders as "wasp".
+[hostname]
+ssh_only = true
+trim_at = "."
+style = "bg:#9A348E"
+format = '[@$hostname ]($style)'
+disabled = false
 
 [directory]
 style = "bg:#DA627D"
