@@ -12,7 +12,7 @@
 set -euo pipefail
 
 # ---------- configuration ----------
-RAW_BASE="${VPS_BOOTSTRAP_RAW_BASE:-https://raw.githubusercontent.com/CHANGE-ME/vps-bootstrap/main}"
+RAW_BASE="${VPS_BOOTSTRAP_RAW_BASE:-https://raw.githubusercontent.com/maylard/vps-bootstrap/main}"
 
 # Pinned versions for GitHub-release tarball fallbacks (bump deliberately).
 EZA_VERSION="v0.21.7"

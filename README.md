@@ -7,7 +7,7 @@ A one-shot installer that makes any fresh Linux VPS look as nice as your favouri
 On a new VPS, with your normal user account (sudo is used only when available, otherwise everything goes into `~/.local/bin`):
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/<you>/vps-bootstrap/main/bootstrap.sh | bash
+curl -fsSL https://raw.githubusercontent.com/maylard/vps-bootstrap/main/bootstrap.sh | bash
 ```
 
 Then **open a fresh Warp tab and SSH in again** — the new prompt only shows up in new shells.
