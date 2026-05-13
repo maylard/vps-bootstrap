@@ -150,11 +150,21 @@ install_zoxide() {
   rm -rf "$tmp"
 }
 
+install_motd() {
+  if have fortune && have cowsay; then
+    log "fortune + cowsay already installed"
+    return
+  fi
+  if apt_install fortune-mod fortunes cowsay 2>/dev/null; then return; fi
+  warn "fortune/cowsay not installable (no apt or no sudo); skipping MOTD packages"
+}
+
 install_cli_tools() {
   install_eza
   install_bat
   install_fzf
   install_zoxide
+  install_motd
 }
 
 # ---------- starship.toml ----------
@@ -204,13 +214,37 @@ command -v starship >/dev/null && eval "$(starship init bash)"
 command -v zoxide   >/dev/null && eval "$(zoxide init bash)"
 [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && . /usr/share/doc/fzf/examples/key-bindings.bash
 [ -f /usr/share/bash-completion/completions/fzf ]   && . /usr/share/bash-completion/completions/fzf
+
+# eza
 if command -v eza >/dev/null; then
   alias ls='eza --icons --group-directories-first'
   alias ll='eza -lah --icons --group-directories-first --git'
   alias la='eza -a  --icons --group-directories-first'
 fi
+
+# bat: Debian/Ubuntu ships it as `batcat`; alias rather than shadow `cat`
 if   command -v bat    >/dev/null; then :
 elif command -v batcat >/dev/null; then alias bat='batcat'
+fi
+
+# navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+mkcd() { mkdir -p -- "$1" && cd -- "$1"; }
+myip() { curl -fsSL https://ifconfig.me && echo; }
+
+# human-readable sizes
+alias df='df -h'
+alias du='du -h'
+alias free='free -h'
+
+# apt one-shot update
+alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
+
+# fortune | cowsay MOTD on interactive shells (skipped if either is absent)
+if [ -n "$PS1" ] && command -v fortune >/dev/null && command -v cowsay >/dev/null; then
+  fortune | cowsay
 fi
 # <<< vps-bootstrap <<<
 BLOCK

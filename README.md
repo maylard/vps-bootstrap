@@ -15,15 +15,23 @@ Then **open a fresh Warp tab and SSH in again** — the new prompt only shows up
 ## What it does
 
 1. Installs `starship` into `~/.local/bin` via its official installer.
-2. Installs `eza`, `bat`, `fzf`, `zoxide` — via `apt` when available, otherwise GitHub-release tarballs into `~/.local/bin`. Individual failures are warnings, not fatal.
+2. Installs `eza`, `bat`, `fzf`, `zoxide`, plus `fortune-mod` + `cowsay` for the MOTD — via `apt` when available, otherwise GitHub-release tarballs into `~/.local/bin`. Individual failures are warnings, not fatal.
 3. Drops the committed `starship.toml` into `~/.config/starship.toml`. If you already have one and it differs, the old file is copied to `starship.toml.bak.<epoch>` first.
 4. Appends a managed block to `~/.bashrc` between sentinel markers (`# >>> vps-bootstrap >>>` ... `# <<< vps-bootstrap <<<`) that:
    - inits starship and zoxide,
    - sources fzf's bash key-bindings and completion,
    - aliases `ls`/`ll`/`la` to `eza` (with Nerd Font icons + git status),
-   - aliases `bat` to `batcat` on Debian/Ubuntu (does **not** shadow `cat`).
+   - aliases `bat` to `batcat` on Debian/Ubuntu (does **not** shadow `cat`),
+   - adds navigation shortcuts (`..`, `...`, `....`, `mkcd`, `myip`),
+   - aliases `df` / `du` / `free` with `-h` for human-readable sizes,
+   - adds an `update` shortcut for `apt update && upgrade -y && autoremove -y`,
+   - prints `fortune | cowsay` on every new interactive shell.
 
 Re-running the script replaces the managed block in place — no duplicates.
+
+## Customising the prompt icon
+
+The clock in the prompt uses 🦫 (U+1F9AB BEAVER) as a stand-in for "capybara" since Unicode doesn't have a capybara emoji yet. Edit `starship.toml` line 162 (`format = '[ 🦫 $time ]($style)'`) to swap it for anything: an ASCII rodent like `(•ᴥ•)`, the classic `♥`, a Nerd Font glyph, etc.
 
 ## Customising the prompt
 
