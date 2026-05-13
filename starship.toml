@@ -1,5 +1,10 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# Bumped from starship defaults (30ms / 500ms) to keep slow storage happy
+# (Raspberry Pi SD cards, network-mounted homes, busy VPSes).
+scan_timeout = 1000
+command_timeout = 2000
+
 format = """
 [](#9A348E)\
 $os\
