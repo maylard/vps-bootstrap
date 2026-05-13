@@ -24,6 +24,14 @@ curl -fsSL https://raw.githubusercontent.com/maylard/vps-bootstrap/main/bootstra
 
 Same one-liner. It detects Darwin, installs everything via `brew`, and writes to `~/.zshrc`. Then `exec zsh` (or open a new tab).
 
+**Warp users on macOS — important:** Warp ships its own block-UI prompt and *ignores the shell's `$PROMPT` by default*. So even after the bootstrap runs and starship is initialised correctly, the prompt will still look like Warp's compact native prompt (e.g. `~ (0.143s)`). To let starship through:
+
+1. Cmd+, → **Settings → Appearance → Prompt** (older builds: Settings → Features → Session)
+2. Switch from "Warp prompt" to "Shell prompt" (sometimes "Honor user's $PS1 / shell-defined prompt")
+3. Open a new Warp tab
+
+This is a Warp setting, not anything wrong with your `~/.zshrc`. The same applies to anyone using starship / powerlevel10k / oh-my-zsh themes in Warp.
+
 ## What it does
 
 1. Installs `starship`:
