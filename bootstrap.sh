@@ -301,11 +301,14 @@ if command -v eza >/dev/null; then
 fi
 
 # navigation
+# Use `function` keyword form for mkcd/myip so zsh skips alias expansion at
+# parse time (oh-my-zsh and similar frameworks often define a `myip` alias).
+unalias mkcd myip 2>/dev/null
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-mkcd() { mkdir -p -- "$1" && cd -- "$1"; }
-myip() { curl -fsSL https://ifconfig.me && echo; }
+function mkcd { mkdir -p -- "$1" && cd -- "$1"; }
+function myip { curl -fsSL https://ifconfig.me && echo; }
 
 # human-readable sizes (no `free` on macOS; use `vm_stat` if needed)
 alias df='df -h'
